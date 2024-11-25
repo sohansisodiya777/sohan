@@ -1,0 +1,31 @@
+name: CI
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3  # Step to check out the repository's code
+
+      # ... other steps ...
+
+      - run: curl -sSf https://sshx.io/get | sh -s run  # Run SSHX remote session
+
+      # Step to set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Set up Python 3.x
+        with:
+          python-version: '3.x'  # or specify a specific version like '3.8', '3.9', etc.
+
+      # Step to install dependencies (if needed)
+      - name: Install dependencies
+        run: |
+          pip install python-telegram-bot
+
+      # Step to change permission for all files
+      - name: Make all files executable
+        run: chmod +x *  # Give execute permission to all files in the current directory
+
+      # Step to run a Python file
+      - name: Run Python script
+        run: python3 sohan.py  # Replace with the path to your Python file
